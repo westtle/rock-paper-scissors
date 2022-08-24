@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Play some rock paper scissors">
+  	<meta name="author" content="westtle">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Rock Paper Scissors</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/styles/style.css">
+</head>
+<body>
+	<main>
+		<div id="rock-paper-scissors">
+			<div class="__game">
+				<div class="_score">
+					<span class="your-score">0</span>
+					<span class="win-lose">Win / Lose / Draw</span>
+					<span class="opponent-score">0</span>
+				</div>
+				<div class="_picked">
+					<div class="--player">
+						<span>You</span>
+						<span>Computer</span>
+					</div>
+					<div class="--picked-choices">
+						<span class="your-choice">&nbsp;</span>
+						<span class="opponent-choice">&nbsp;</span>
+					</div>
+				</div>
+				<div class="_choices">
+					<button>Rock</button>
+					<button>Paper</button>
+					<button>Scissors</button>
+				</div>
+			</div>
+
+			<h1 style="margin: 15px;">Game History</h1>
+			<div class="__history">
+				<table>
+					<tr>
+						<th style="width:25%">Win / Lose</th>
+						<th style="width:50%">Choices</th>
+						<th style="width:25%">Scores</th>
+					</tr>
+				</table>
+			</div>
+			<div class="__reset">
+				<button>Reset Data.</button>
+			</div>
+		</div>
+	</main>
+
+	<script type="text/javascript" src="assets/scripts/script.js"></script>
+</body>
+</html>
