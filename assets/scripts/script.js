@@ -87,7 +87,7 @@ function resetData() {
 	gameHistory = [];
 
 	historyTable.innerHTML = `<tr>
-								<th style="width:25%">Win / Lose</th>
+								<th style="width:25%">Result</th>
 								<th style="width:50%">Choices</th>
 								<th style="width:25%">Scores</th>
 							</tr>`;
