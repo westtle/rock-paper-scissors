@@ -38,6 +38,11 @@ main {
 	text-align: center;
 }
 
+hr {
+	border-top: var(--border-shorthand);
+	margin: 0;
+}
+
 #rock-paper-scissors {
 	width: 100%;
 }
@@ -78,13 +83,14 @@ main {
 	font-weight: bold;
 }
 
-/* Choices / 3 Buttons */
+/* Choices / Buttons */
 
 ._choices {
 	display: flex;
 }
 
-._choices button {
+._choices button,
+._reset button {
 	background: none;
 	border: none;
 	width: 100%;
@@ -95,69 +101,32 @@ main {
 
 /* Game History */
 
-/*.__history {
-	margin-top: var(--unit-two);
-}*/
-
-/*.__history table {
+.__history {
 	border: var(--border-shorthand);
-	width: 100%;*/
-	/*border-collapse: collapse;*/
-	/*margin: 0 auto;*/
-	/*padding: 8px;*/
-/*}*/
+	margin-top: var(--unit-two);
+}
+
+._table {
+	border-bottom: var(--border-shorthand);
+	height: 20vh;
+	max-height: 140px;
+}
+
+._table table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+._table table th {
+	padding: var(--unit-one) var(--unit-two);
+}
 
 /* Media Query */
 
 @media (hover: hover) {
-	._choices button:hover {
+	._choices button:hover,
+	._reset button:hover {
 		color: var(--button-hover-color);
 		background: var(--button-hover-backround);
 	}
 }
-
-/*
-
-/* Game History */
-
-/*.__history {
-	border: 1px solid rgba(0, 0, 0, 0.6);
-	height: 150px;
-	margin: 0 auto;
-	overflow-y: scroll;
-}
-
-.__history table {
-	border-collapse: collapse;
-	width: 100%;
-	margin: 0 auto;
-	padding: 8px;
-}
-
-.__history table th {
-	padding: 11px 13px;
-}
-
-.__history table tr:nth-child(even) {
-	background: #f7f7f7;
-}*/
-
-/* Reset Button */
-
-/*.__reset {
-	border: 1px solid rgba(0, 0, 0, 0.6);
-	border-top: none;
-}*/
-
-/* Media Query. */
-
-/*@media (max-width: 270px) {
-	* {
-		font-size: 12px;
-	}
-
-	._choices button,
-	.__reset button {
-		font-size: 10px;
-	}
-}*/
