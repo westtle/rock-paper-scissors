@@ -2,6 +2,7 @@ let yourScore = 0;
 let opponentScore = 0;
 
 let gameHistory = [];
+let lastGameResult = [];
 
 // HTML.
 const yourScoreHTML = document.querySelector(".your-score_");
@@ -82,6 +83,7 @@ function resetData() {
 	yourScoreHTML.innerText = "0";
 	opponentScoreHTML.innerText = "0";
 
+	lastGameResult = gameHistory.slice(-1);
 	gameHistory = [];
 
 	historyTable.innerHTML = `<tr>
@@ -108,15 +110,27 @@ function tableRender(yourChoice, opponentChoice, winLoseDraw) {
 // Local Storage.
 
 const gameHistoryKey = "Game_History";
+const lastGameResultKey = "Last_Game";
 
 function saveHistory() {
 	localStorage.setItem(gameHistoryKey, JSON.stringify(gameHistory));
+	localStorage.setItem(lastGameResultKey, JSON.stringify(lastGameResult));
 };
 
 function loadHistory() {
     let gameHistoryFromStorage = JSON.parse(localStorage.getItem(gameHistoryKey)) || [];
-    
+    let lastGameResultFromStorage = JSON.parse(localStorage.getItem(lastGameResultKey)) || [];
+
     gameHistory = gameHistoryFromStorage;
+    lastGameResult = lastGameResultFromStorage;
+
+    // Show lastGameResult If Someone Resetted The Score & Refreshed The Page (Not 1st Time Visit).
+    if (lastGameResult.length == 1) {
+    	yourChoiceHTML.innerText = lastGameResult[0].yourChoice;
+		opponentChoiceHTML.innerText = lastGameResult[0].opponentChoice;
+
+		winLoseHTML.innerText = lastGameResult[0].winLoseDraw;
+    }
 
     // Renderer.
     gameHistoryFromStorage.forEach((history, index) => {
