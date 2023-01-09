@@ -121,7 +121,7 @@ function checkIfEmpty() {
 // Local Storage.
 
 const gameHistoryKey = "Game_History";
-const lastGameResultKey = "Last_Game";
+const lastGameResultKey = "Last_Game_Result";
 
 function saveHistory() {
 	localStorage.setItem(gameHistoryKey, JSON.stringify(gameHistory));
