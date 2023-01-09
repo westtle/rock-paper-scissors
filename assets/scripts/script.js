@@ -1,99 +1,77 @@
-let gameHistoryList = [];
-
 let yourScore = 0;
 let opponentScore = 0;
 
+let gameHistory = [];
+
 // HTML.
-const yourScoreHtml = document.querySelector(".your-score");
-const opponentScoreHtml = document.querySelector(".opponent-score");
-const winLose = document.querySelector(".win-lose");
+const yourScoreHTML = document.querySelector(".your-score_");
+const opponentScoreHTML = document.querySelector(".opponent-score_");
+const winLoseHTML = document.querySelector(".win-lose_");
 
-const yourChoice = document.querySelector(".your-choice");
-const opponentChoice = document.querySelector(".opponent-choice");
+const yourChoiceHTML = document.querySelector(".your-choice__");
+const opponentChoiceHTML = document.querySelector(".opponent-choice__");
 
-const buttonRock = document.querySelectorAll("._choices button")[0];
-const buttonPaper = document.querySelectorAll("._choices button")[1];
-const buttonScissors = document.querySelectorAll("._choices button")[2];
+const rockButton = document.querySelectorAll("._choices button")[0];
+const paperButton = document.querySelectorAll("._choices button")[1];
+const scissorsButton = document.querySelectorAll("._choices button")[2];
 
-const buttonReset = document.querySelector(".__reset button");
+const resetButton = document.querySelector("._reset button");
 
-const historyTable = document.querySelector(".__history table");
+const historyTable = document.querySelector("._table table");
 
-class GameHistory {
-	constructor(status, pickedChoice, choiceOpponent, yourScore, opponentScore) {
-		this.winLoseStatus = status;
-		this.pickedChoice = pickedChoice;
-		this.choiceOpponent = choiceOpponent;
-		this.yourScore = yourScore;
-		this.opponentScore = opponentScore;
-	}
-};
+function selectChoices() {
+	let winLoseDraw;
 
-function selectChoice() {
-	let winLoseStatus;
+	const yourChoice = this.innerText;
+	yourChoiceHTML.innerText = yourChoice;
 
-	let pickedChoice = this.innerText;
-	yourChoice.innerText = pickedChoice;
+	const opponentChoice = ["Rock", "Paper", "Scissors"][Math.floor(Math.random() * 3)]
+	opponentChoiceHTML.innerText = opponentChoice;
 
-	const choicesForOpponent = ["Rock", "Paper", "Scissors"];
-	choiceOpponent = choicesForOpponent[Math.floor(Math.random() * 3)]
-	opponentChoice.innerText = choiceOpponent;
-
-	// Score Condition Check.
-	if (pickedChoice == choiceOpponent) {
+	// Checking Your Choice.
+	if (yourChoice == opponentChoice) { // Draw.
 		yourScore += 1;
 		opponentScore += 1;
-		winLose.innerText = "Draw";
-		winLoseStatus = "Draw";
-	} else if (pickedChoice == "Rock") {
-		if (choiceOpponent == "Scissors") {
+		winLoseDraw = "Draw";
+	} else if (yourChoice == "Rock") { // Rock.
+		if (opponentChoice == "Scissors") {
 			yourScore += 1;
-			winLose.innerText = "Win";
-			winLoseStatus = "Win";
-		} else if (choiceOpponent == "Paper") {
+			winLoseDraw = "Win";
+		} else if (opponentChoice == "Paper") {
 			opponentScore += 1;
-			winLose.innerText = "Lose";
-			winLoseStatus = "Lose";
+			winLoseDraw = "Lose";
 		};
-	} else if (pickedChoice == "Paper") {
-		if (choiceOpponent == "Rock") {
+	} else if (yourChoice == "Paper") { // Paper.
+		if (opponentChoice == "Rock") {
 			yourScore += 1;
-			winLose.innerText = "Win";
-			winLoseStatus = "Win";
-		} else if (choiceOpponent == "Scissors") {
+			winLoseDraw = "Win";
+		} else if (opponentChoice == "Scissors") {
 			opponentScore += 1;
-			winLose.innerText = "Lose";
-			winLoseStatus = "Lose";
+			winLoseDraw = "Lose";
 		};
-	} else if (pickedChoice == "Scissors") {
-		if (choiceOpponent == "Paper") {
+	} else if (yourChoice == "Scissors") { // Scissors.
+		if (opponentChoice == "Paper") {
 			yourScore += 1;
-			winLose.innerText = "Win";
-			winLoseStatus = "Win";
-		} else if (choiceOpponent == "Rock") {
+			winLoseDraw = "Win";
+		} else if (opponentChoice == "Rock") {
 			opponentScore += 1;
-			winLose.innerText = "Lose";
-			winLoseStatus = "Lose";
+			winLoseDraw = "Lose";
 		};
 	};
 
-	// Update HTML Score.
-	yourScoreHtml.innerText = yourScore;
-	opponentScoreHtml.innerText = opponentScore;
+	winLoseHTML.innerText = winLoseDraw;
+
+	// Update Score in HTML.
+	yourScoreHTML.innerText = yourScore;
+	opponentScoreHTML.innerText = opponentScore;
 
 	// Update Game History.
-	let newRow = historyTable.insertRow(1);
+	tableRender(yourChoice, opponentChoice, winLoseDraw);
 
-	let cellOne = newRow.insertCell(0);
-	cellOne.innerHTML = `<td>${winLoseStatus}</td>`;
-	let cellTwo = newRow.insertCell(1);
-	cellTwo.innerHTML = `<td>${pickedChoice} / ${choiceOpponent}</td>`;
-	let cellThree = newRow.insertCell(2);
-	cellThree.innerHTML = `<td>${yourScore} / ${opponentScore}</td>`;
+	// Add To History.
+	const gameResult = {yourChoice, opponentChoice, yourScore, opponentScore, winLoseDraw};
+	gameHistory.push(gameResult);
 
-	// Save Game History.
-	let gameHistory = new GameHistory(winLoseStatus, pickedChoice, choiceOpponent, yourScore, opponentScore);
-	gameHistoryList.push(gameHistory);
 	saveHistory();
 };
 
@@ -101,13 +79,10 @@ function resetData() {
 	yourScore = 0;
 	opponentScore = 0;
 
-	yourScoreHtml.innerText = "0";
-	opponentScoreHtml.innerText = "0";
+	yourScoreHTML.innerText = "0";
+	opponentScoreHTML.innerText = "0";
 
-	winLose.innerText = "Win / Lose / Draw";
-
-	yourChoice.innerText = `\n`;
-	opponentChoice.innerText = `\n`;
+	gameHistory = [];
 
 	historyTable.innerHTML = `<tr>
 								<th style="width:25%">Win / Lose</th>
@@ -115,55 +90,56 @@ function resetData() {
 								<th style="width:25%">Scores</th>
 							</tr>`;
 
-	gameHistoryList = [];
 	saveHistory();
+};
+
+function tableRender(yourChoice, opponentChoice, winLoseDraw) {
+	let newRow = historyTable.insertRow(1);
+
+	let cellOne = newRow.insertCell(0);
+	let cellTwo = newRow.insertCell(1);
+	let cellThree = newRow.insertCell(2);
+
+	cellOne.innerHTML = `<td>${winLoseDraw}</td>`;
+	cellTwo.innerHTML = `<td>${yourChoice} / ${opponentChoice}</td>`;
+	cellThree.innerHTML = `<td>${yourScore} / ${opponentScore}</td>`;
 };
 
 // Local Storage.
 
-const storageKey = "Game_History";
+const gameHistoryKey = "Game_History";
 
 function saveHistory() {
-	const storageItem = JSON.stringify(gameHistoryList)
-	localStorage.setItem(storageKey, storageItem);
+	localStorage.setItem(gameHistoryKey, JSON.stringify(gameHistory));
 };
 
 function loadHistory() {
-	const storageGet = localStorage.getItem(storageKey);
-	let storageParsed = JSON.parse(storageGet);
+    let gameHistoryFromStorage = JSON.parse(localStorage.getItem(gameHistoryKey)) || [];
+    
+    gameHistory = gameHistoryFromStorage;
 
-	// Renderer.
-	for (let i = 0;  i < storageParsed.length; i++) {
-		let newRow = historyTable.insertRow(1);
+    // Renderer.
+    gameHistoryFromStorage.forEach((history, index) => {
+    	yourScore = history.yourScore;
+    	opponentScore = history.opponentScore;
 
-		let cellOne = newRow.insertCell(0);
-		cellOne.innerHTML = `<td>${storageParsed[i].winLoseStatus}</td>`;
-		let cellTwo = newRow.insertCell(1);
-		cellTwo.innerHTML = `<td>${storageParsed[i].pickedChoice} / ${storageParsed[i].choiceOpponent}</td>`;
-		let cellThree = newRow.insertCell(2);
-		cellThree.innerHTML = `<td>${storageParsed[i].yourScore} / ${storageParsed[i].opponentScore}</td>`;
+    	yourScoreHTML.innerText = history.yourScore;
+		opponentScoreHTML.innerText = history.opponentScore;
 
-		winLose.innerText = storageParsed[i].winLoseStatus;
+    	yourChoiceHTML.innerText = history.yourChoice;
+		opponentChoiceHTML.innerText = history.opponentChoice;
 
-		yourScore = storageParsed[i].yourScore;
-		opponentScore = storageParsed[i].opponentScore;
+		winLoseHTML.innerText = history.winLoseDraw;
 
-		yourScoreHtml.innerText = storageParsed[i].yourScore;
-		opponentScoreHtml.innerText = storageParsed[i].opponentScore;
-
-		yourChoice.innerText = storageParsed[i].pickedChoice;
-		opponentChoice.innerText = storageParsed[i].choiceOpponent;
-
-		gameHistoryList.push(storageParsed[i]);
-		saveHistory();
-	};
+		// Table.
+		tableRender(history.yourChoice, history.opponentChoice, history.winLoseDraw);
+    });
 };
 
-buttonRock.addEventListener("click", selectChoice);
-buttonPaper.addEventListener("click", selectChoice);
-buttonScissors.addEventListener("click", selectChoice);
-
-buttonReset.addEventListener("click", resetData);
+rockButton.addEventListener("click", selectChoices);
+paperButton.addEventListener("click", selectChoices);
+scissorsButton.addEventListener("click", selectChoices);
+resetButton.addEventListener("click", resetData);
 
 document.addEventListener("DOMContentLoaded", () => {
 	loadHistory();
