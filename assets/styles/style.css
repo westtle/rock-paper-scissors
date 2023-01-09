@@ -123,7 +123,7 @@ main {
 }
 
 ._table table td {
-	padding: 3px;
+	padding: 3.5px;
 }
 
 ._table table tr:nth-child(even) {
