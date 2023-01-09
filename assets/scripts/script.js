@@ -19,6 +19,7 @@ const scissorsButton = document.querySelectorAll("._choices button")[2];
 const resetButton = document.querySelector("._reset button");
 
 const historyTable = document.querySelector("._table table");
+const emptyTextTable = document.querySelector("._table .empty_");
 
 function selectChoices() {
 	let winLoseDraw;
@@ -73,6 +74,7 @@ function selectChoices() {
 	const gameResult = {yourChoice, opponentChoice, yourScore, opponentScore, winLoseDraw};
 	gameHistory.push(gameResult);
 
+	checkIfEmpty();
 	saveHistory();
 };
 
@@ -92,6 +94,7 @@ function resetData() {
 								<th style="width:25%">Scores</th>
 							</tr>`;
 
+	checkIfEmpty();
 	saveHistory();
 };
 
@@ -105,6 +108,14 @@ function tableRender(yourChoice, opponentChoice, winLoseDraw) {
 	cellOne.innerHTML = `<td>${winLoseDraw}</td>`;
 	cellTwo.innerHTML = `<td>${yourChoice} / ${opponentChoice}</td>`;
 	cellThree.innerHTML = `<td>${yourScore} / ${opponentScore}</td>`;
+};
+
+function checkIfEmpty() {
+	if (gameHistory.length > 0) {
+		emptyTextTable.style.display = "none";
+	} else {
+		emptyTextTable.style.display = "flex";
+	};
 };
 
 // Local Storage.
@@ -157,4 +168,5 @@ resetButton.addEventListener("click", resetData);
 
 document.addEventListener("DOMContentLoaded", () => {
 	loadHistory();
+	checkIfEmpty();
 });

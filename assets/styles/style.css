@@ -130,6 +130,13 @@ main {
 	background: #f7f7f7;
 }
 
+.empty_ {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(100% - 31px);
+}
+
 /* Media Query */
 
 @media (hover: hover) {
