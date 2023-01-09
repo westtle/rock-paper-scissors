@@ -38,11 +38,6 @@ main {
 	text-align: center;
 }
 
-hr {
-	border-top: var(--border-shorthand);
-	margin: 0;
-}
-
 #rock-paper-scissors {
 	width: 100%;
 }
@@ -110,6 +105,7 @@ hr {
 	border-bottom: var(--border-shorthand);
 	height: 20vh;
 	max-height: 140px;
+	overflow-y: auto;
 }
 
 ._table table {
@@ -118,7 +114,20 @@ hr {
 }
 
 ._table table th {
+	background: white;
 	padding: var(--unit-one) var(--unit-two);
+	box-shadow: inset 0 -1px 0 var(--border-main);
+
+	position: sticky;
+	top: 0;
+}
+
+._table table td {
+	padding: 4px;
+}
+
+._table table tr:nth-child(even) {
+	background: #f7f7f7;
 }
 
 /* Media Query */
