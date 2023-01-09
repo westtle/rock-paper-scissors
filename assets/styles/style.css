@@ -139,3 +139,11 @@ main {
 		background: var(--button-hover-backround);
 	}
 }
+
+/* Font Size */
+@media (max-width: 30rem) { /* 480px */
+	html {
+		font-size: calc(1rem - 10%);
+	}
+}
+/* -------- */
