@@ -120,17 +120,17 @@ function checkIfEmpty() {
 
 // Local Storage.
 
-const gameHistoryKey = "Game_History";
-const lastGameResultKey = "Last_Game_Result";
+const game_history = "Game_History";
+const last_game_result = "Last_Game_Result";
 
 function saveHistory() {
-	localStorage.setItem(gameHistoryKey, JSON.stringify(gameHistory));
-	localStorage.setItem(lastGameResultKey, JSON.stringify(lastGameResult));
+	localStorage.setItem(game_history, JSON.stringify(gameHistory));
+	localStorage.setItem(last_game_result, JSON.stringify(lastGameResult));
 };
 
 function loadHistory() {
-    let gameHistoryFromStorage = JSON.parse(localStorage.getItem(gameHistoryKey)) || [];
-    let lastGameResultFromStorage = JSON.parse(localStorage.getItem(lastGameResultKey)) || [];
+    let gameHistoryFromStorage = JSON.parse(localStorage.getItem(game_history)) || [];
+    let lastGameResultFromStorage = JSON.parse(localStorage.getItem(last_game_result)) || [];
 
     gameHistory = gameHistoryFromStorage;
     lastGameResult = lastGameResultFromStorage;
