@@ -98,8 +98,7 @@ main {
 
 ._table {
 	border-bottom: var(--border-shorthand);
-	height: 20vh;
-	max-height: 8.75rem;
+	height: 8.75rem;
 	overflow-y: auto;
 }
 
